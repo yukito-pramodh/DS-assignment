@@ -1,0 +1,47 @@
+#include <stdio.h>
+#define MAX 5
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+void enqueue(int value) {
+    if((rear+1)%MAX == front)
+        printf("\nQueue is Full!!");
+    else {
+        if(front == -1)
+            front = 0;
+        rear = (rear+1)%MAX;
+        queue[rear] = value;
+        printf("Inserted -> %d",value);
+    }
+}
+
+void dequeue() {
+    if(front == -1)
+        printf("\nQueue is empty");
+    else {
+        printf("Deleted element -> %d",queue[front]);
+        if(front == rear) {
+            front = -1;
+            rear = -1;
+        }
+        else
+            front = (front+1)%MAX;
+    }
+}
+
+void find() {
+    int i, loc;
+    printf("\nEnter the element to find: ");
+    scanf("%d",&loc);
+    for(i=front; i!=rear; i=(i+1)%MAX) {
+        if(queue[i] == loc) {
+            printf("\nElement found at location %d",i+1);
+            return;
+        }
+    }
+    if(queue[i] == loc)
+        printf("\nElement found at location %d",i+1);
+    else
+        printf("\nElement not found");
+}
